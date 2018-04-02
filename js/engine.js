@@ -64,9 +64,22 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
+
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+            if (enemy.y == player.y && Math.abs(enemy.x - player.x) < 50) {
+                player.reset();
+                alert('sorry!you lose the game!');
+            }
+            if (player.y == 0) {
+                player.reset();
+                alert('you win this game!');
+            }
+        });
+    }
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
      * 函数，然后，它会调用玩家对象的 update 方法，最后这个函数被 update 函数调用。
      * 这些更新函数应该只聚焦于更新和对象相关的数据/属性。把重绘的工作交给 render 函数。
